@@ -30,14 +30,18 @@ cpu = host_machine.cpu() == 'cortex-m0+' ? 'cortex-m0plus' : host_machine.cpu()
 #==============================================================================#
 # convenience function : link correct C-runtime for each controller
 # TODO: use llvm compiler-rt
-arch       = (host_machine.cpu() == 'cortex-m0') or (host_machine.cpu() == 'cortex-m0+') or (host_machine.cpu() == 'cortex-m1') ? 'v6-m'  : ''
-arch      += (host_machine.cpu() == 'cortex-m3') ?                                                                                'v7-m'  : ''
-arch      += (host_machine.cpu() == 'cortex-m4') or (host_machine.cpu() == 'cortex-m7') ?                                         'v7e-m' : ''
+arch_version  = (host_machine.cpu() == 'cortex-m0') or (host_machine.cpu() == 'cortex-m0+') or (host_machine.cpu() == 'cortex-m1') ? 'v6-m'  : ''
+arch_version += (host_machine.cpu() == 'cortex-m3') ?                                                                                'v7-m'  : ''
+arch_version += (host_machine.cpu() == 'cortex-m4') or (host_machine.cpu() == 'cortex-m7') ?                                         'v7e-m' : ''
 
-# link_deps += meson.get_compiler('c').find_library('gcc', dirs: [join_paths(COMPILER_PATH, 'thumb/@0@+fp/hard').format(arch)])
-# message(join_paths(meson.project_source_root(), 'newlib/release-build'))
-# link_deps += meson.get_compiler('c').find_library('c', dirs: [join_paths(meson.project_source_root(), 'newlib/release-build')])
-c_args += '-march=@0@'.format( 'arm' + arch )
+c_args += '-march=@0@'.format( 'arm' + arch_version )
+
+#==============================================================================#
+# libc (newlib) include
+# gcc links it but does not find headers
+if build_machine.system() == 'linux'
+  incdirs += include_directories('/usr/arm-none-eabi/include')
+endif
 
 #==============================================================================#
 # convenience function : use correct Floating Point option
