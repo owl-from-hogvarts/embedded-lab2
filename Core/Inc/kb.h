@@ -1,6 +1,7 @@
 #ifndef INC_KEYBOARD_H_
 #define INC_KEYBOARD_H_
 
+#include "stm32f4xx_hal_def.h"
 #define ROW1 0xFE
 #define ROW2 0xFD
 #define ROW3 0xFB

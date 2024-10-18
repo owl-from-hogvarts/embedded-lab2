@@ -1,8 +1,8 @@
-#include "main.h"
 
 #ifndef PCA9538_H_
 #define PCA9538_H_
 
+#include "stm32f4xx_hal_def.h"
 #define DIP_RD_ADDR 0xE1
 #define DIP_WR_ADDR 0xE0
 
