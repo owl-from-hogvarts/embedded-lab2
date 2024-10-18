@@ -95,7 +95,7 @@ main = executable(
 objcopy  = '@0@'.format(find_program('objcopy').full_path())
 objdump  = '@0@'.format(find_program('objdump').full_path())
 size     = '@0@'.format(find_program('size').full_path())
-gdb      = '@0@'.format(find_program('gdb').full_path())
+# gdb      = '@0@'.format(find_program('gdb').full_path())
 terminal = '@0@'.format(find_program('konsole',required:false).full_path())
 openocd  = '@0@'.format(find_program('openocd', required:false).full_path())
 
@@ -146,8 +146,8 @@ endif
 
 #==============================================================================#
 # support target commands
-run_target('gdb',
-         command : [terminal, '--working-directory=@0@'.format(meson.source_root()), '-e', gdb, '-q', '@0@/main.elf'.format(meson.current_build_dir())])
+# run_target('gdb',
+#          command : [terminal, '--working-directory=@0@'.format(meson.source_root()), '-e', gdb, '-q', '@0@/main.elf'.format(meson.current_build_dir())])
 
 run_target('openocd',
          command : [terminal, '-e', openocd, '-f', 'interface/stlink-v2.cfg', '-f' , 'target/stm32f3x.cfg'])
