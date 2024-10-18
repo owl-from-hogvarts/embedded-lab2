@@ -14,8 +14,8 @@ c_args        = []
 link_args     = []
 link_deps     = []
 
-compiler_version = meson.get_compiler('c').version()
-COMPILER_PATH = '/usr/lib/gcc/arm-none-eabi/' + compiler_version
+# compiler_version = meson.get_compiler('c').version()
+# COMPILER_PATH = '/usr/lib/gcc/arm-none-eabi/' + compiler_version
 
 #==============================================================================#
 # Controller / HAL Driver dependend options
@@ -34,7 +34,7 @@ arch       = (host_machine.cpu() == 'cortex-m0') or (host_machine.cpu() == 'cort
 arch      += (host_machine.cpu() == 'cortex-m3') ?                                                                                'v7-m'  : ''
 arch      += (host_machine.cpu() == 'cortex-m4') or (host_machine.cpu() == 'cortex-m7') ?                                         'v7e-m' : ''
 
-link_deps += meson.get_compiler('c').find_library('gcc', dirs: [join_paths(COMPILER_PATH, 'thumb/@0@+fp/hard').format(arch)])
+# link_deps += meson.get_compiler('c').find_library('gcc', dirs: [join_paths(COMPILER_PATH, 'thumb/@0@+fp/hard').format(arch)])
 # message(join_paths(meson.project_source_root(), 'newlib/release-build'))
 # link_deps += meson.get_compiler('c').find_library('c', dirs: [join_paths(meson.project_source_root(), 'newlib/release-build')])
 c_args += '-march=@0@'.format( 'arm' + arch )
@@ -46,7 +46,7 @@ c_args += '-march=@0@'.format( 'arm' + arch )
 #==============================================================================#
 # we have to define the std headers : for stdint.h
 # if meson.get_compiler('c').get_id() == 'clang'
-incdirs += include_directories(join_paths(COMPILER_PATH, 'include')) # bare-metal : std header includes
+# incdirs += include_directories(join_paths(COMPILER_PATH, 'include')) # bare-metal : std header includes
 # endif
 
 #==============================================================================#
