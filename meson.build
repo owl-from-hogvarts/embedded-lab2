@@ -14,7 +14,8 @@ c_args        = []
 link_args     = []
 link_deps     = []
 
-COMPILER_PATH = '/usr/lib/gcc/arm-none-eabi/14.1.0'
+compiler_version = meson.get_compiler('c').version()
+COMPILER_PATH = '/usr/lib/gcc/arm-none-eabi/' + compiler_version
 
 #==============================================================================#
 # Controller / HAL Driver dependend options
