@@ -30,11 +30,12 @@ cpu = host_machine.cpu() == 'cortex-m0+' ? 'cortex-m0plus' : host_machine.cpu()
 #==============================================================================#
 # convenience function : link correct C-runtime for each controller
 # TODO: use llvm compiler-rt
+arch = 'arm'
 arch_version  = (host_machine.cpu() == 'cortex-m0') or (host_machine.cpu() == 'cortex-m0+') or (host_machine.cpu() == 'cortex-m1') ? 'v6-m'  : ''
 arch_version += (host_machine.cpu() == 'cortex-m3') ?                                                                                'v7-m'  : ''
 arch_version += (host_machine.cpu() == 'cortex-m4') or (host_machine.cpu() == 'cortex-m7') ?                                         'v7e-m' : ''
 
-c_args += '-march=@0@'.format( 'arm' + arch_version )
+c_args += '-march=@0@'.format( arch + arch_version )
 
 #==============================================================================#
 # libc (newlib) include
