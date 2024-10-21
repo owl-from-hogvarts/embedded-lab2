@@ -50,9 +50,10 @@ endif
 
 #==============================================================================#
 # we have to define the std headers : for stdint.h
-# if meson.get_compiler('c').get_id() == 'clang'
-# incdirs += include_directories(join_paths(COMPILER_PATH, 'include')) # bare-metal : std header includes
-# endif
+if meson.get_compiler('c').get_id() == 'clang'
+        newlib = meson.get_compiler('c').find_library('c', dirs : ['/Applications/LLVM-ET-Arm-19.1.1-Darwin-universal/lib/clang-runtimes/newlib/arm-none-eabi/armv7m_soft_fpv4_sp_d16_exn_rtti/lib'])
+        link_deps += [declare_dependency(link_with: [newlib])]
+endif
 
 #==============================================================================#
 # create Debug Flags, depending on meson buildtype
